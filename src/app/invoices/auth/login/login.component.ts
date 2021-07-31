@@ -56,57 +56,13 @@ export class LoginComponent implements OnInit {
 
      }
 
-      onSubmit(){
-
-        
-       this.invoiceService.loginUser(this.loginForm.value).subscribe(data=>{
-        this._snackBar.open('User Login successfully' , 'Success' , {
-            duration:2000
-          })
-        
-         this.loginForm.reset();
-         this.router.navigate(['dashboard' ,'invoices'])
-         console.log(data);
-       },
-       err => this.errorHandler(err , 'Failed to Login')
-       )
       
-     }
-
-     private errorHandler(error ,message ){
-       console.log(error);
-       this._snackBar.open(message , 'Error' , {
-         duration:2000
-       })
-     }
-
-     onCancel() {
-
-      this.router.navigate(['dashboard' ,'invoices'])
-
-     }
 
      onLoginSubmit(){
 
-      const user = {
-        email: this.email,
-        password: this.password
-      }
-      console.log(user);
-      this.invoiceService.loginUser(user).subscribe(data => {
-        if(data['success']) {
-         this.invoiceService.storeUserData(data['token'], data['user']);
-          // this.flashMessage.show('You are now logged in', {cssClass: 'alert-success', timeout: 5000});
-          this._snackBar.open('User Login successfully' , 'Success' , {
-            duration:2000
-          })
-          this.router.navigate(['dashboard' ,'invoices']);
-        } else {
-          // this.flashMessage.show(data['msg'], {cssClass: 'alert-danger', timeout: 5000});
-          this.router.navigate(['login']);
-        }
-    },  err => this.errorHandler(err , 'Failed to Login')
-    );
+      console.log(this.loginForm.value)
+
+      
   
     }
   

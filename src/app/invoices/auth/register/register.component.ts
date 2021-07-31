@@ -31,7 +31,6 @@ export class RegisterComponent implements OnInit {
   ngOnInit(): void {
 
     this.createForm();
-    this.setInvoiceToForm();
   }
 
   createForm(){
@@ -49,22 +48,6 @@ export class RegisterComponent implements OnInit {
      }
      
 
-      onSubmit(){
-
-        
-       this.invoiceService.createUser(this.registerForm.value).subscribe(data=>{
-        this._snackBar.open('User Registered successfully' , 'Success' , {
-            duration:2000
-          })
-        
-         this.registerForm.reset();
-         this.router.navigate(['dashboard' ,'login'])
-         console.log(data);
-       },
-       err => this.errorHandler(err , 'Failed to create User')
-       )
-      
-     }
 
      private errorHandler(error ,message ){
        console.log(error);
@@ -79,34 +62,14 @@ export class RegisterComponent implements OnInit {
 
      }
 
-      setInvoiceToForm(){
-
-        this.route.params.subscribe(params => {
-
-          let id = params['id'];
-
-          if(!id){
-            return;
-          }
-          this.invoiceService.getInvoiceId(id)
-          .subscribe(invoice => {
-            debugger
-             this.invoice = invoice;
-             this.registerForm.patchValue(this.invoice);
-
-
-          }, err => this.errorHandler(err , 'Failed to get invoice')
-          )
-        })
-       
-     }
 
      onRegister(){
        
        console.log(this.registerForm.value)
        this._snackBar.open('User Register successfully' , 'Success' , {
         duration:2000
-      })
+      }
+      )
 
       this.router.navigate(['dashboard' ,'login'])
      }
