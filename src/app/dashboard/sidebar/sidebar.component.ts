@@ -24,11 +24,8 @@ export class SidebarComponent implements OnInit {
        {
          name: 'Register',
          url:'register'
-       },
-       {
-        name: 'Login',
-        url:'login'
-      }
+       }
+       
 ]
 
   constructor() {

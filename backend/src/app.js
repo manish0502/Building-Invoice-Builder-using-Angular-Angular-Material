@@ -3,8 +3,10 @@ const connectDB = require('../config/db');
 const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors')
+const session = require('express-session'); 
+const flash = require('express-flash');
 var logger = require('morgan')
-
+var passport = require('passport');
 
 
 // Connect Database
@@ -22,7 +24,41 @@ app.use((error , req, res , next) =>{
     })
    next();
 })
-app.use(cors());
+app.use(cors({
+    origin: ['http://localhost:4200'],
+    credentials:true
+}));
+
+app.use(session({
+
+    name:'myname.sid',
+    secret: 'keyboard',
+    resave: false,
+    saveUninitialized:false,
+    cookie:
+        {
+            maxAge: 1000 * 60 * 60 * 24 ,
+            httpOnly: false,
+            secure: false
+
+        }
+
+}))
+
+
+/*********************** Passport Configration ************************************/
+
+
+const passportInit = require('../passport/passport')
+passportInit(passport)
+app.use(passport.initialize())
+app.use(passport.session())
+
+/*********************** Using Flash as middleware ********************************/
+
+app.use(flash());
+
+
 app.use(bodyParser.json());
 app.use(express.json({extended : false}));
 

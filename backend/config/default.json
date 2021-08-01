@@ -1,5 +1,4 @@
 {
-    "mongoURI": "mongodb://localhost:27017/Invoice-Builder",
-    "jwtSecret" : "mysecrettoken" 
+    "mongoURI": "mongodb://localhost:27017/Invoice-Builder"
 
 }

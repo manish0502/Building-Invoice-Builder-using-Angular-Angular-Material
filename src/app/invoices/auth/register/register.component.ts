@@ -38,16 +38,15 @@ export class RegisterComponent implements OnInit {
     this.registerForm = this.fb.group({ 
     
           name :['' , Validators.required],
-          email: ['', Validators.compose([Validators.required, Validators.pattern('^[^\\s@]+@[^\\s@]+\\.[^\\s@]{2,}$'), Validators.minLength(1)])],
-          username : ['' , Validators.required],
+          email: ['', Validators.compose([Validators.required, Validators.minLength(1)])],    
           password: ['', Validators.required],  
-          c_password:['', Validators.required]
+          
 
       })
     
      }
      
-
+   
 
      private errorHandler(error ,message ){
        console.log(error);
@@ -62,6 +61,28 @@ export class RegisterComponent implements OnInit {
 
      }
 
+     onRegisterSubmit(){
+      if(!this.registerForm.valid){
+        console.log("Invalid") ;
+        return
+      }
+
+      this.invoiceService.registerUser(this.registerForm.value)
+      .subscribe(
+        data=>{
+         this._snackBar.open('User have Register successfully' , 'Success' , {
+           duration:4000
+         })
+          console.log(data);
+          this.router.navigate(['dashboard' ,'login']);
+        },
+        error=>console.log(error)
+        )
+
+
+     
+ 
+   }
 
      onRegister(){
        
@@ -74,6 +95,9 @@ export class RegisterComponent implements OnInit {
       this.router.navigate(['dashboard' ,'login'])
      }
    
+     goTologin(){
+      this.router.navigate(['dashboard' ,'login'])  
+     }
   }
 
 

@@ -59,11 +59,30 @@ export class LoginComponent implements OnInit {
       
 
      onLoginSubmit(){
+       if(!this.loginForm.valid){
+         console.log("Invalid") ;
+         return
+       }
 
-      console.log(this.loginForm.value)
+       this.invoiceService.loginUser(this.loginForm.value)
+       .subscribe(
+         data=>{
+          this._snackBar.open('You have Login successfully' , 'Success' , {
+            duration:4000
+          })
+           console.log(data);
+           this.router.navigate(['dashboard' ,'invoices']);
+         },
+         error=>console.log(error)
+         )
+
 
       
   
+    }
+
+    goToRegister(){
+      this.router.navigate(['dashboard' ,'register']);
     }
   
 

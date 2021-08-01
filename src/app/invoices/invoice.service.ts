@@ -6,6 +6,8 @@ import { HttpClient ,HttpHeaders ,HttpParams}   from '@angular/common/http'
 //import { Observable } from 'rxjs/internal/Observable';
 //import {Observable } from 'rxjs/Observable';
 import { Invoice } from './models/invoice'
+import { Register } from './models/register';
+import { Login } from './models/login';
 
 const BASE_URL ='http://localhost:5000/api'
 
@@ -49,6 +51,35 @@ export class InvoiceService {
   updateInvoice(id:string ,body:Invoice):Observable<Invoice[]>{
     
     return this.http.put<Invoice[]>(`${BASE_URL}/invoice/${id}` ,body);
+
+  }
+
+
+  // registerUser(body:Register){
+     
+  //   return this.http.post(`${BASE_URL}/register`, body ,{
+  //     observe:'body',
+  //     headers: new HttpHeaders().append('Content-Type', 'application/json')
+  //   });
+
+  // }
+
+  registerUser(body:Register):Observable<Register[]>{
+     
+    return this.http.post<Register[]>(`${BASE_URL}/register`, body ,{
+      observe:'body',
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
+
+  }
+
+  loginUser(body:Login):Observable<Login[]>{
+     
+    return this.http.post<Login[]>(`${BASE_URL}/login`, body ,{
+      observe:'body',
+      withCredentials:true,
+      headers: new HttpHeaders().append('Content-Type', 'application/json')
+    });
 
   }
 }
